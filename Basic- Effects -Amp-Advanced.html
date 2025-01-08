@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Validator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .password {
+            margin-top: 10px;
+            height: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .weak {
+            background-color: red;
+            width: 33%;
+        }
+        .medium {
+            background-color: yellow;
+            width: 66%;
+        }
+
+        .strong {
+            background-color: green;
+            width: 100%;
+        }
+
+        #passError {
+            font-size: 20px;
+            margin-top: 10px;
+            background-color: red;
+            margin-left:3px;
+            margin-left: 10px;
+            padding:10px 40px 10px 40px;
+        }
+
+        #password {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- password-strength-bar -->
+    <!-- password-strength-message -->
+
+    <h2>Password Checker jQuery</h2>
+
+    <label for="password">Enter Password:</label><br>
+    <input type="password" id="password" placeholder="Enter your password" />
+
+    <span class="password" id="passwordBar"></span> 
+    <span id="passError"></span> 
+
+    <script>
+        // Function to check password strength
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            const passMessage = $('#passError');
+            const passBar = $('#passwordBar');
+            
+            // Check length (at least 6 characters)
+            if (password.length >= 6) strength += 1;
+            if (password.length >= 8) strength += 1;
+            
+            // Check for uppercase letters
+            if (/[A-Z]/.test(password)) strength += 1;
+            
+            // Check for numbers
+            if (/\d/.test(password)) strength += 1;
+            
+            // Check for special characters
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 1;
+
+            // Provide feedback based on the strength score
+            switch (strength) {
+                case 0:
+                case 1:
+                    passBar.removeClass().addClass('weak');
+                    passMessage.text('Weak');
+                    break;
+                case 2:
+                case 3:
+                    passBar.removeClass().addClass('medium');
+                    passMessage.text('Medium');
+                    break;
+                case 4:
+                    passBar.removeClass().addClass('strong');
+                    passMessage.text('Strong');
+                    break;
+            }
+        }
+
+        // Event listener for password input
+        $('#password').on('input', function() {
+            const password = $(this).val();
+            checkPasswordStrength(password);
+        });
+    </script>
+
+</body>
+</html>
