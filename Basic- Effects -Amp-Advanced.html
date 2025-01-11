@@ -37,6 +37,7 @@
             margin-left:3px;
             margin-left: 10px;
             padding:10px 40px 10px 40px;
+            color:white;
         }
 
         #password {
@@ -56,7 +57,7 @@
     <label for="password">Enter Password:</label><br>
     <input type="password" id="password" placeholder="Enter your password" />
 
-    <span class="password" id="passwordBar"></span> 
+    <!-- <span class="password" id="passwordBar"></span>  -->
     <span id="passError"></span> 
 
     <script>
@@ -90,10 +91,12 @@
                 case 3:
                     passBar.removeClass().addClass('medium');
                     passMessage.text('Medium');
+                    passMessage.css('background-color','orange');
                     break;
                 case 4:
                     passBar.removeClass().addClass('strong');
                     passMessage.text('Strong');
+                    passMessage.css('background-color','green');
                     break;
             }
         }
